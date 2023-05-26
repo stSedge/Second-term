@@ -1,0 +1,30 @@
+После выделения некоторого объема памяти возможно обращение к ней. Определим
+это обращение с помощью функции \verb|arena_allocate|:
+
+\begin{minted}{cpp} 
+int arena_allocate (arena* arena, unsigned int count) {
+    // Если места в регионе недостаточно
+    if (arena->allocated + count >= arena->size) {
+        // Определим новый размер региона
+        unsigned int newSize = MULTIPLY_FACTOR * arena->size;
+        // Выделим регион большего размера и освободим ранее занятую память
+        node* newArena = realloc(arena->arena, 
+            newSize  * sizeof(node));
+        if (NULL == newArena) {
+            return -1;
+        }
+        arena->arena = newArena;
+        arena->size = newSize;
+    }
+    // В качестве результата вернем индекс первого свободного участка региона
+    unsigned int result = arena->allocated;
+    // Сместим индекс на объем выделенной памяти
+    arena->allocated += count;
+    // Вернем результат
+    return result;
+}
+\end{minted}
+
+Отметим, что наиболее часто значением \verb|MULTIPLY_FACTOR| оказываются числа
+1.5 и 2. Это позволяет достичь амортизационно константного времени выполнения
+операции выделения памяти \cite{facebook}.

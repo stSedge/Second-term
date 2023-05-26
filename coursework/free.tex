@@ -1,0 +1,10 @@
+Наконец, реализуем освобождение выделенной региону памяти с помощью функции
+\verb|arena_free|:
+
+\begin{minted}{cpp}
+void arena_free (arena* arena) {
+    if (arena->arena != NULL)
+        free(arena->arena);
+    arena->arena = NULL;
+}
+\end{minted}

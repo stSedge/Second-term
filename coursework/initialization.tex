@@ -1,0 +1,17 @@
+Теперь определим функцию \verb|arena_construct|, выполняющую начальную
+инициализацию состояния региона:
+
+\begin{minted}{cpp}
+int arena_construct (arena* arena) {
+    // Начальный размер региона равен некоторой постоянной, равной DEFAULT_ARENA_SIZE
+    arena->size = DEFAULT_ARENA_SIZE;
+    arena->allocated = 0;
+    // Выделим необходимое число памяти
+    arena->arena = malloc(sizeof(node) * DEFAULT_ARENA_SIZE);
+    // Если выделение прошло неудачно - вернем в качестве кода ошибки отличное от 0 значение.
+    if (arena->arena == NULL) {
+        return (!0);
+    }
+    return 0;
+}
+\end{minted}

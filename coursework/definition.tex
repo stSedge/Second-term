@@ -1,0 +1,11 @@
+Определим нашу структуру следующим образом:
+\begin{minted}{cpp}
+typedef struct arena {
+    // Указатель на начало региона
+    struct node* arena;
+    // Размер региона
+    unsigned int size;
+    // Объем выделенной регионом памяти
+    unsigned int allocated;
+    } arena;
+\end{minted}
