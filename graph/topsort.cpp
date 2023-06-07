@@ -38,17 +38,18 @@ void dfs(int v) { // обход в глубину
 
 
 void graph() {
-	cout << "n = ";
+	cout << "n (number of vertices) = ";
 	cin >> n;
-	cout << "m = ";
+	cout << "m (number of edges) = ";
 	cin >> m;
 	g.resize(n); // выделение памяти в векторе
     used.resize(n);
     p.resize(n);
 	int v, u;
+    cout << "Enter " << m << " edges:\n";
 	for (int i = 0; i < m; ++i) { // добавление ребер в список смежности
 		cin >> v >> u; // нумерация вершин графа начинается с 0
-		if (v > n || u > n) continue;
+		if (v >= n || u >= n || v < 0 || u < 0) continue;
 		g[v].push_back(u);
 	}
 	for (int i = 0; i < n; ++i) {
